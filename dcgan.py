@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 import argparse
 import math
+# Test sync
 
 
 def generator_model():
@@ -89,7 +90,15 @@ def train(BATCH_SIZE):
     discriminator.trainable = True
     discriminator.compile(loss='binary_crossentropy', optimizer=d_optim)
     noise = np.zeros((BATCH_SIZE, 100))
-    for epoch in range(100):
+
+
+    # let's continue
+    generator.load_weights('generator')
+    discriminator.load_weights('discriminator')
+
+    for epoch_i in range(100):
+        epoch = epoch_i + 100
+
         print("Epoch is", epoch)
         print("Number of batches", int(X_train.shape[0]/BATCH_SIZE))
         for index in range(int(X_train.shape[0]/BATCH_SIZE)):
